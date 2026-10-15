@@ -1,0 +1,23 @@
+# Python bytecode y cachés
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+.venv/
+
+# IDEs y editores
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Resultados de entrenamiento, pesos y métricas locales
+outputs/
+*.pt
+*.log
