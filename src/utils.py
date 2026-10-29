@@ -1,6 +1,7 @@
 import random
 import os
 import json
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Mapping, Sequence, Tuple
 import numpy as np
@@ -78,6 +79,7 @@ def plot_confusion_matrix(
     fig.savefig(output_path, dpi=200)
     plt.close(fig)
 
+@dataclass
 class HierarchicalLabelEncoder:
     """
     Stores the mappings needed for hierarchical prediction.
