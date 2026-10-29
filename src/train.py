@@ -2,7 +2,8 @@ import argparse
 from pathlib import Path
 import torch
 from torch.utils.data import DataLoader
-from transformers import AdamW, get_linear_schedule_with_warmup
+from torch.optim import AdamW
+from transformers import get_linear_schedule_with_warmup
 from tqdm import tqdm
 from typing import List
 
@@ -103,7 +104,7 @@ def train_one_epoch(model, loader, optimizer, scheduler, device, use_amp: bool):
     total_loss = 0.0
     total_samples = 0
 
-    scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
+    scaler = torch.amp.GradScaler("cuda", enabled=use_amp)
 
     for batch in tqdm(loader, desc="train", leave=False):
         input_ids = batch["input_ids"].to(device)
@@ -113,7 +114,7 @@ def train_one_epoch(model, loader, optimizer, scheduler, device, use_amp: bool):
 
         optimizer.zero_grad(set_to_none=True)
 
-        with torch.cuda.amp.autocast(enabled=use_amp):
+        with torch.amp.autocast("cuda", enabled=use_amp):
             outputs = model(
                 input_ids=input_ids,
                 attention_mask=attention_mask,
